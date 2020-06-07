@@ -4,8 +4,8 @@ import os
 10. Детский садик.
 +++ Для вычисления платы за пребывание детей в детском саду утром воспитателями производится учёт поступающих детей.
 +++ Собранные сведения о пришедших детях передаются заведующей садиком.
---- На основании этих сведений формируется квитанция об оплате (за месяц) которая передаётся родителям через воспитателей.
---- После оплаты квитанция приносится воспитателям.
++++ На основании этих сведений формируется квитанция об оплате, которая передаётся родителям через воспитателей.
++++ После оплаты квитанция приносится воспитателям.
 --- Если в течении 10 дней квитанция не оплачивается, то ребёнок в детский садик не принимается.
 --- Сведения об отсутствующих детях передаются медицинской сестре.
 --- Те дети, которые отсутствовали более 3 дней, принимаются в садик только при наличии медицинской справки о здоровье.
@@ -24,6 +24,7 @@ SMOrc -
 
 
 class Teachers:
+    # Учителя заполняют списки присутствующих
     @staticmethod
     def getting_info_of_absence():
         position_now = 0
@@ -39,14 +40,30 @@ class Teachers:
                 position_now += 1
         return data_of_all_days
 
+    # Воспитатели получают квитанцию от родителей
+    @staticmethod
+    def getting_receipt_from_parents():
+        parents_get_receipt = Parents.paying_receipt()
+        print(parents_get_receipt)
+
 
 class Director(Teachers):
-    director_get_data_of_all_days = Teachers.getting_info_of_absence()
+    # Директор получает список
+    @staticmethod
+    def getting_list_of_absence():
+        director_get_data_of_all_days = Teachers.getting_info_of_absence()
+        return director_get_data_of_all_days
 
 
 class Parents(Director, Teachers):
-    receipt = [r.randint(0, 1) for k in range(len(Director.director_get_data_of_all_days))]
-    print(receipt)
+    # Родители оплачивают квитанцию
+    @staticmethod
+    def paying_receipt():
+        receipt = [[r.randint(0, 1) for k in range(len(Director.getting_list_of_absence()))]
+                   for l in range(len(Director.getting_list_of_absence()))]
+        for row in range(len(receipt)):
+            print(receipt[row])
+        return receipt
 
 
 class Nurse:

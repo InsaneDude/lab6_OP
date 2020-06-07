@@ -1,6 +1,6 @@
 import math
 import sympy as sym
-from abc import ABC, abstractmethod
+from abc import *
 
 
 class MethodClass(ABC):
