@@ -12,15 +12,8 @@ import os
 --- Сформировать коллекцию данных с информацией о посещаемости детьми детского сада.
 '''
 
-# C:\Users\insane_dude\Documents\GitHub\lab6_OP\6.2input
 
-'''
-KEKW +
-BlessRNG +
-Kappa -
-LUL +
-SMOrc -
-'''
+# C:\Users\insane_dude\Documents\GitHub\lab6_OP\6.2input
 
 
 class Teachers:
@@ -28,7 +21,8 @@ class Teachers:
     @staticmethod
     def getting_info_of_absence():
         position_now = 0
-        way_to_directory_open = str(input("Введіть шлях до папки, де ви хочете зчитати файли : "))
+        way_to_directory_open = r'C:\Users\insane_dude\Documents\GitHub\lab6_OP\6.2input'
+        # way_to_directory_open = str(input("Введіть шлях до папки, де ви хочете зчитати файли : "))
         files_in_dir_list = os.listdir(way_to_directory_open)
         os.chdir(way_to_directory_open)
         data_of_all_days = [[] for _ in range(len(files_in_dir_list))]
@@ -41,29 +35,26 @@ class Teachers:
         return data_of_all_days
 
     # Воспитатели получают квитанцию от родителей
-    @staticmethod
-    def getting_receipt_from_parents():
-        parents_get_receipt = Parents.paying_receipt()
-        print(parents_get_receipt)
+    # def getting_receipt_from_parents(self):
+    #     self.parents_get_receipt = self.paying_receipt()
+    #     print(self.parents_get_receipt)
 
 
 class Director(Teachers):
     # Директор получает список
-    @staticmethod
-    def getting_list_of_absence():
-        director_get_data_of_all_days = Teachers.getting_info_of_absence()
+    def getting_list_of_absence(self):
+        director_get_data_of_all_days = self.getting_info_of_absence()
         return director_get_data_of_all_days
 
 
 class Parents(Director, Teachers):
     # Родители оплачивают квитанцию
-    @staticmethod
-    def paying_receipt():
-        receipt = [[r.randint(0, 1) for k in range(len(Director.getting_list_of_absence()))]
-                   for l in range(len(Director.getting_list_of_absence()))]
-        for row in range(len(receipt)):
-            print(receipt[row])
-        return receipt
+    def paying_receipt(self):
+        len_of_getting_info = len(Director.getting_info_of_absence())
+        self.receipt = [[r.randint(0, 1) for k in range(len_of_getting_info)] for k in range(len_of_getting_info)]
+        for row in range(len(self.receipt)):
+            print(self.receipt[row])
+        return self.receipt
 
 
 class Nurse:
@@ -71,3 +62,6 @@ class Nurse:
 
 
 k = Parents()
+k.paying_receipt()
+print("Кашевар К.С.")
+print("Вариант 10")
