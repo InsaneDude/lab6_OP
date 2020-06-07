@@ -34,10 +34,16 @@ class Teachers:
                 position_now += 1
         return data_of_all_days
 
-    # Воспитатели получают квитанцию от родителей
-    # def getting_receipt_from_parents(self):
-    #     self.parents_get_receipt = self.paying_receipt()
-    #     print(self.parents_get_receipt)
+    # Воспитатели получают квитанцию от родителей и проверяют на наличие оплаты
+    def getting_receipt_from_parents(self):
+        self.from_parents_get_receipt = Parents.paying_receipt()
+        for i in range(len(self.from_parents_get_receipt)):
+            for j in range(len(self.from_parents_get_receipt[i])):
+                try:
+                    if [0]*10 in self.from_parents_get_receipt[i:(i+10)][j]:
+                        print('but how...')
+                except IndexError:
+                    break
 
 
 class Director(Teachers):
@@ -49,12 +55,13 @@ class Director(Teachers):
 
 class Parents(Director, Teachers):
     # Родители оплачивают квитанцию
-    def paying_receipt(self):
+    @staticmethod
+    def paying_receipt():
         len_of_getting_info = len(Director.getting_info_of_absence())
-        self.receipt = [[r.randint(0, 1) for k in range(len_of_getting_info)] for k in range(len_of_getting_info)]
-        for row in range(len(self.receipt)):
-            print(self.receipt[row])
-        return self.receipt
+        receipt = [[r.randint(0, 1) for k in range(len_of_getting_info)] for k in range(len_of_getting_info)]
+        for row in range(len(receipt)):
+            print(receipt[row])
+        return receipt
 
 
 class Nurse:
@@ -62,6 +69,8 @@ class Nurse:
 
 
 k = Parents()
-k.paying_receipt()
+k.getting_receipt_from_parents()
 print("Кашевар К.С.")
 print("Вариант 10")
+
+
