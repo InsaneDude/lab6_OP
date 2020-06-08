@@ -8,7 +8,7 @@
 # print(l)
 
 
-import random as r
+# import random as r
 
 
 # k = [[r.randint(10, 50) for m in range(4)] for n in range(7)]
@@ -30,10 +30,12 @@ import random as r
 #     if test in l:
 #         print('true')
 
-
 k = [2, 3]
-l = [[2, 3], [4, 5]]
-if k in l:
-    print("kk")
+l = [2, 3]
+if k == l:
+    print('kk')
 else:
-    print('oh nonono')
+    print("wtf")
+
+
+
