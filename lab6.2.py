@@ -34,16 +34,31 @@ class Teachers:
                 position_now += 1
         return data_of_all_days
 
-    # Воспитатели получают квитанцию от родителей и проверяют на наличие оплаты
+    # Воспитатели получают квитанцию от родителей и проверяют на наличие оплаты (1 - оплачено, 0 - нет)
     def getting_receipt_from_parents(self):
         self.from_parents_get_receipt = Parents.paying_receipt()
-        for i in range(len(self.from_parents_get_receipt)):
-            for j in range(len(self.from_parents_get_receipt[i])):
-                try:
-                    if [0]*10 in self.from_parents_get_receipt[i:(i+10)][j]:
-                        print('but how...')
-                except IndexError:
-                    break
+        for row in range(len(self.from_parents_get_receipt)):
+            print(self.from_parents_get_receipt[row])
+        f_array = [0]*10
+        lines_with_zero = 0
+        print("test to detect")
+        for i in range(len(self.from_parents_get_receipt[0])):
+            list_checker = []
+            num_iter = 0
+            for j in range(len(self.from_parents_get_receipt)):
+                list_checker.append(self.from_parents_get_receipt[j][i])
+                if f_array == list_checker[(0 + num_iter):(10 + num_iter)]:
+                    num_iter += 1
+                    print("zeros not found")
+                    if num_iter is 5:
+                        continue
+                else:
+                    print('found zeros')
+                    lines_with_zero += 1
+                    print(lines_with_zero)
+                    return False
+            print(list_checker)
+
 
 
 class Director(Teachers):
@@ -58,9 +73,23 @@ class Parents(Director, Teachers):
     @staticmethod
     def paying_receipt():
         len_of_getting_info = len(Director.getting_info_of_absence())
-        receipt = [[r.randint(0, 1) for k in range(len_of_getting_info)] for k in range(len_of_getting_info)]
-        for row in range(len(receipt)):
-            print(receipt[row])
+        # receipt = [[r.randint(0, 1) for k in range(5)] for k in range(len_of_getting_info)]
+        receipt = [[0, 1, 1, 0, 0],
+                   [0, 0, 0, 0, 0],
+                   [0, 0, 1, 0, 0],
+                   [0, 0, 1, 0, 0],
+                   [0, 1, 1, 0, 0],
+                   [0, 1, 1, 0, 0],
+                   [1, 0, 0, 0, 0],
+                   [1, 1, 1, 0, 0],
+                   [1, 1, 0, 0, 0],
+                   [0, 1, 1, 0, 0],
+                   [1, 1, 1, 0, 0],
+                   [1, 1, 1, 0, 0],
+                   [1, 1, 0, 0, 0],
+                   [1, 1, 1, 0, 0],
+                   [0, 0, 1, 0, 0],
+                   [0, 0, 0, 0, 0]]
         return receipt
 
 
@@ -72,5 +101,4 @@ k = Parents()
 k.getting_receipt_from_parents()
 print("Кашевар К.С.")
 print("Вариант 10")
-
 
