@@ -65,7 +65,7 @@ class CreatingVariable(MethodClass):
 
 
 '''
-Класи, пов'язані з cos
+Класи, пов'язані з sin
 '''
 
 
@@ -77,11 +77,11 @@ class SinFromVariable(CreatingVariable):
         return sin_from_variable
 
 
-# # Числове значення sin
-# class SinMeaning(SinFromVariable):
-#     def counting_sin(self):
-#         sym.Symbol = input_number
-#         print('Значення cos : ', self.cos_var())
+# Числове значення sin
+class SinMeaning(SinFromVariable):
+    def counting_sin(self):
+        x = float(input("Введіть значення, для якого необхідно обчислити для sin : "))
+        print('Значення з sin : ', self.sin_var)
 
 
 # Похідна від sin
@@ -92,10 +92,10 @@ class DiffSinFromVariable(SinFromVariable):
 
 
 # # Значення похідної від sin
-# class DiffSinMeaning(DiffSinFromVariable):
-#     def diff_counting_sin(self):
-#         sym.Symbol = input_number
-#         print(self.sin_diff_var())
+class DiffSinMeaning(DiffSinFromVariable):
+    def diff_counting_sin(self):
+        sym.Symbol =  "Введіть значення, для якого необхідно обчислити для похідної sin: "
+        print(self.sin_diff_var())
 
 
 '''
@@ -111,11 +111,11 @@ class CosFromVariable(CreatingVariable):
         return cos_from_variable
 
 
-# # Числове значення cos
-# class CosMeaning(CosFromVariable):
-#     def counting_cos(self):
-#         sym.Symbol = input_number
-#         print('Значення cos : ', self.cos_var())
+# Числове значення cos
+class CosMeaning(CosFromVariable):
+    def counting_cos(self):
+        sym.Symbol = float(input("Введіть значення, для якого необхідно обчислити : "))
+        print('Значення cos : ', self.cos_var())
 
 
 # Похідна від cos
@@ -125,22 +125,22 @@ class DiffCosFromVariable(CosFromVariable):
         print("Похідна від заданого виразу :", cos_differed_var)
 
 
-# # Значення похідної від cos
-# class DiffCosMeaning(DiffCosFromVariable):
-#     def diff_counting_cos(self):
-#         sym.Symbol = input_number
-#         print(self.cos_diff_var())
+# Значення похідної від cos
+class DiffCosMeaning(DiffCosFromVariable):
+    def diff_counting_cos(self):
+        sym.Symbol = "Введіть значення, для якого необхідно обчислити : "
+        print(self.cos_diff_var())
 
 
 choosing_method = int(input("Введіть 1 (якщо sin) чи 2 (якщо cos) для обрання відповідного режиму : "))
 # input_number = int(input("Введіть значення змінної : "))
 if choosing_method is 1:
-    choosed_algo = DiffSinFromVariable()
+    choosed_algo = DiffSinMeaning()
     choosed_algo.counting_sin()
     choosed_algo.sin_diff_var()
-    # choosed_algo.diff_counting_sin()
+    choosed_algo.diff_counting_sin()
 elif choosing_method is 2:
-    choosed_algo = DiffCosFromVariable()
+    choosed_algo = DiffCosMeaning()
     choosed_algo.counting_cos()
     choosed_algo.cos_diff_var()
-    # choosed_algo.diff_counting_cos()
+    choosed_algo.diff_counting_cos()
